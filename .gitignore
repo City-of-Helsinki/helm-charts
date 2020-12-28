@@ -1,0 +1,4 @@
+/secrets
+/.kubeconfig-*
+/bin/
+/.backup-certificates.yaml
