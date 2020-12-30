@@ -13,7 +13,7 @@ local manifests = main {
           $.dex.Connector(k, v.name, k, {
             clientID: v.client_id,
             clientSecret: v.client_secret,
-          }) + v.extraSettings
+          } + v.extraSettings)
         ),
         std.prune(secrets.authBackends)
       ),

@@ -2,7 +2,7 @@ local kube = import '../vendor/kube-libsonnet/kube.libsonnet';
 local utils = import '../vendor/kube-libsonnet/utils.libsonnet';
 local base32 = import 'base32.libsonnet';
 
-local DEX_IMAGE = 'quay.io/dexidp/dex:v2.15.0';
+local DEX_IMAGE = 'ghcr.io/dexidp/dex:v2.27.0';
 local DEX_HTTPS_PORT = 5556;
 local DEX_CONFIG_VOLUME_PATH = '/etc/dex/config';
 local DEX_TLS_VOLUME_PATH = '/etc/dex/tls';
@@ -241,6 +241,8 @@ local dexNameHash(s) = std.asciiLower(std.strReplace(base32.base32(fakeHashFNV(s
       },
       dexCRD('OAuth2Client'),
       dexCRD('Password'),
+      dexCRD('DeviceRequest'),
+      dexCRD('DeviceToken'),
       dexCRD('RefreshToken'),
       dexCRD('SigningKey') + {
         metadata+: {
