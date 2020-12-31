@@ -1,0 +1,27 @@
+{{- range $key, $value := .Values }}
+{{- if not (empty $value)}}
+{{- if and ($value.enabled ) ($value.cmCertificate) ($value.ingress) -}}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  labels:
+{{ include "kube-oidc-proxy.labels" $ | indent 4 }}
+  annotations:
+    {{- range $key, $val := $.Values.certificate.annotations }}
+    {{ $key }}: {{ $val | quote }}
+    {{- end }}
+  name: {{ include "kube-oidc-proxy.fullname" $ }}-{{ $key }}
+spec:
+  dnsNames:
+  {{- range $value.ingress.hosts }}
+  - {{ .host }}
+  {{- end }}
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: {{ $.Values.certificate.issuer }}
+  secretName: {{ $key }}-tls
+---
+{{- end }}
+{{- end }}
+{{- end }}

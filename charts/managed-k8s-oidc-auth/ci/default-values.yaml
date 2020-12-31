@@ -1,0 +1,8 @@
+kube-oidc-proxy:
+  oidc:
+    clientId: my-client
+    issuerUrl: https://accounts.google.com
+    usernameClaim: email
+
+certificate:
+  issuer: selfsigned-issuer

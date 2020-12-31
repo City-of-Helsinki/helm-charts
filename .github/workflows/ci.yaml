@@ -27,6 +27,7 @@ jobs:
         run: |
           helm repo add gabibbo97 https://gabibbo97.github.io/charts/
           helm repo add jetstack https://charts.jetstack.io
+          helm repo add city-of-helsinki https://city-of-helsinki.github.io/managed-k8s-oidc-auth/
 
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.0.1
@@ -70,6 +71,7 @@ jobs:
         run: |
           helm repo add gabibbo97 https://gabibbo97.github.io/charts/
           helm repo add jetstack https://charts.jetstack.io
+          helm repo add city-of-helsinki https://city-of-helsinki.github.io/managed-k8s-oidc-auth/
 
       - name: Run kubeval
         env:
@@ -110,6 +112,7 @@ jobs:
         run: |
           helm repo add gabibbo97 https://gabibbo97.github.io/charts/
           helm repo add jetstack https://charts.jetstack.io
+          helm repo add city-of-helsinki https://city-of-helsinki.github.io/managed-k8s-oidc-auth/
 
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.0.1
@@ -119,5 +122,22 @@ jobs:
         with:
           node_image: kindest/node:${{ matrix.k8s }}
 
+      - name: Set up cert-manager
+        run: |
+          kubectl create namespace cert-manager
+          helm install \
+            cert-manager jetstack/cert-manager \
+            --namespace cert-manager \
+            --version v1.1.0 \
+            --set installCRDs=true
+          cat <<EOF > test-resources.yaml
+          apiVersion: cert-manager.io/v1
+          kind: ClusterIssuer
+          metadata:
+            name: selfsigned-issuer
+          spec:
+            selfSigned: {}
+          EOF
+          kubectl apply -f test-resources.yaml
       - name: Run chart-testing (install)
         run: ct install --config .github/ct.yaml
