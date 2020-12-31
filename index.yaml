@@ -1,0 +1,17 @@
+apiVersion: v1
+entries:
+  kube-oidc-proxy:
+  - apiVersion: v1
+    appVersion: v0.3.0
+    created: "2020-12-31T11:00:23.03572106Z"
+    description: A Helm chart for kube-oidc-proxy
+    digest: 858548a7ce768cb421ba091ef308d2a21ce19d77abfe80f39eebcd45b0c95b5d
+    home: https://github.com/jetstack/kube-oidc-proxy
+    maintainers:
+    - name: mhrabovcin
+    - name: joshvanl
+    name: kube-oidc-proxy
+    urls:
+    - https://github.com/City-of-Helsinki/managed-k8s-oidc-auth/releases/download/kube-oidc-proxy-0.3.1/kube-oidc-proxy-0.3.1.tgz
+    version: 0.3.1
+generated: "2020-12-31T11:00:22.885964522Z"
