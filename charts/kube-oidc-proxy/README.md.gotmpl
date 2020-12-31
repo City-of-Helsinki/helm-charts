@@ -1,8 +1,9 @@
-# kube-oidc-proxy
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
 
-![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![AppVersion: v0.3.0](https://img.shields.io/badge/AppVersion-v0.3.0-informational?style=flat-square)
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}
 
-A Helm chart for kube-oidc-proxy
+{{ template "chart.description" . }}
 
 This is a `helm` chart that installs [`kube-oidc-proxy`](https://github.com/jetstack/kube-oidc-proxy/).
 This helm chart cannot be installed out of the box without providing own
@@ -76,56 +77,12 @@ tls:
   secretName: my-tls-secret-with-key-and-cert
 ```
 
-**Homepage:** <https://github.com/jetstack/kube-oidc-proxy>
+{{ template "chart.homepageLine" . }}
 
-## Maintainers
+{{ template "chart.maintainersSection" . }}
 
-| Name | Email | Url |
-| ---- | ------ | --- |
-| mhrabovcin |  |  |
-| joshvanl |  |  |
+{{ template "chart.sourcesSection" . }}
 
-## Values
+{{ template "chart.requirementsSection" . }}
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| affinity | object | `{}` |  |
-| extraArgs | object | `{}` |  |
-| extraImpersonationHeaders.clientIP | bool | `false` |  |
-| extraVolumeMounts | object | `{}` |  |
-| extraVolumes | object | `{}` |  |
-| fullnameOverride | string | `""` |  |
-| image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.repository | string | `"quay.io/jetstack/kube-oidc-proxy"` |  |
-| image.tag | string | `"v0.3.0"` |  |
-| imagePullSecrets | list | `[]` |  |
-| ingress.annotations | object | `{}` |  |
-| ingress.enabled | bool | `false` |  |
-| ingress.hosts[0].host | string | `"chart-example.local"` |  |
-| ingress.hosts[0].paths | list | `[]` |  |
-| ingress.tls | list | `[]` |  |
-| initContainers | list | `[]` |  |
-| nameOverride | string | `""` |  |
-| nodeSelector | object | `{}` |  |
-| oidc.caPEM | string | `nil` |  |
-| oidc.clientId | string | `""` |  |
-| oidc.groupsClaim | string | `nil` |  |
-| oidc.groupsPrefix | string | `nil` |  |
-| oidc.issuerUrl | string | `""` |  |
-| oidc.requiredClaims | object | `{}` |  |
-| oidc.signingAlgs[0] | string | `"RS256"` |  |
-| oidc.usernameClaim | string | `""` |  |
-| oidc.usernamePrefix | string | `nil` |  |
-| podDisruptionBudget.enabled | bool | `false` |  |
-| podDisruptionBudget.minAvailable | int | `1` |  |
-| replicaCount | int | `1` |  |
-| resources | object | `{}` |  |
-| service.annotations | string | `nil` |  |
-| service.loadBalancerIP | string | `""` |  |
-| service.loadBalancerSourceRanges | list | `[]` |  |
-| service.port | int | `443` |  |
-| service.type | string | `"ClusterIP"` |  |
-| tls.secretName | string | `nil` |  |
-| tokenPassthrough.audiences | list | `[]` |  |
-| tokenPassthrough.enabled | bool | `false` |  |
-| tolerations | list | `[]` |  |
+{{ template "chart.valuesSection" . }}

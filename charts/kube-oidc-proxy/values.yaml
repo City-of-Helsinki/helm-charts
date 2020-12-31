@@ -60,22 +60,22 @@ tokenPassthrough:
 # https://github.com/jetstack/kube-oidc-proxy/blob/master/docs/tasks/extra-impersonation-headers.md
 extraImpersonationHeaders:
   clientIP: false
-  #headers: key1=foo,key2=bar,key1=bar
+  # headers: key1=foo,key2=bar,key1=bar
 
 extraArgs: {}
-  #audit-log-path: /audit-log
-  #audit-policy-file: /audit/audit.yaml
+  # audit-log-path: /audit-log
+  # audit-policy-file: /audit/audit.yaml
 
 extraVolumeMounts: {}
-  #- name: audit
-  #  mountPath: /audit
-  #  readOnly: true
+  # - name: audit
+  #   mountPath: /audit
+  #   readOnly: true
 
 extraVolumes: {}
-  #- configMap:
-      #defaultMode: 420
-      #name: kube-oidc-proxy-policy
-    #name: audit
+# - configMap:
+#     defaultMode: 420
+#     name: kube-oidc-proxy-policy
+#   name: audit
 
 ingress:
   enabled: false

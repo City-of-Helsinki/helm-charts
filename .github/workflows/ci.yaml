@@ -10,15 +10,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: Run chart-testing (lint)
-        uses: helm/chart-testing-action@v1.1.0
+      - name: Set up Helm
+        uses: azure/setup-helm@v1
         with:
-          command: lint
-          config: .github/ct.yaml
+          version: v3.4.0
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: Add dependency chart repos
+        run: |
+          helm repo add gabibbo97 https://gabibbo97.github.io/charts/
+          helm repo add jetstack https://charts.jetstack.io
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.0.1
+
+      - name: Run chart-testing (lint)
+        run: ct lint --config .github/ct.yaml
 
   lint-docs:
     runs-on: ubuntu-latest
@@ -47,6 +61,16 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set up Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.4.0
+
+      - name: Add dependency chart repos
+        run: |
+          helm repo add gabibbo97 https://gabibbo97.github.io/charts/
+          helm repo add jetstack https://charts.jetstack.io
+
       - name: Run kubeval
         env:
           KUBERNETES_VERSION: ${{ matrix.k8s }}
@@ -69,16 +93,31 @@ jobs:
           - v1.19.3
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.4.0
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: Add dependency chart repos
+        run: |
+          helm repo add gabibbo97 https://gabibbo97.github.io/charts/
+          helm repo add jetstack https://charts.jetstack.io
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.0.1
 
       - name: Create kind ${{ matrix.k8s }} cluster
         uses: helm/kind-action@v1.1.0
         with:
           node_image: kindest/node:${{ matrix.k8s }}
+
       - name: Run chart-testing (install)
-        uses: helm/chart-testing-action@v1.1.0
-        with:
-          command: install
-          config: .github/ct.yaml
+        run: ct install --config .github/ct.yaml

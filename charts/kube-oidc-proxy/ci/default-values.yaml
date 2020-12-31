@@ -1,0 +1,4 @@
+oidc:
+  clientId: my-client
+  issuerUrl: https://accounts.google.com
+  usernameClaim: email
