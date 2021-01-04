@@ -26,6 +26,13 @@ kube-oidc-proxy:
     hosts:
     - host: kube-oidc-proxy.example.com
       paths: ["/"]
+  resources:
+    limits:
+      cpu: 50m
+      memory: 64Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
 
 gangway:
   enabled: true
@@ -50,6 +57,13 @@ gangway:
     hosts:
     - host: into.example.com
       paths: ["/"]
+  resources:
+    limits:
+      cpu: 50m
+      memory: 64Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
 
 dex:
   enabled: true
@@ -70,3 +84,10 @@ dex:
     hosts:
     - host: dex.example.com
       paths: ["/"]
+  resources:
+    limits:
+      cpu: 50m
+      memory: 64Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi

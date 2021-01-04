@@ -40,6 +40,10 @@ be available before installation of this chart. It's not recommended to be used 
 | dex.ingress.hosts[0].host | string | `"dex.example.com"` |  |
 | dex.ingress.hosts[0].paths[0] | string | `"/"` |  |
 | dex.prometheusOperator.serviceMonitor.enable | bool | `false` |  |
+| dex.resources.limits.cpu | string | `"50m"` |  |
+| dex.resources.limits.memory | string | `"64Mi"` |  |
+| dex.resources.requests.cpu | string | `"50m"` |  |
+| dex.resources.requests.memory | string | `"64Mi"` |  |
 | dex.staticClients | list | `[]` |  |
 | dex.staticPasswords | list | `[]` |  |
 | gangway.config.apiServerURL | string | `"https://kube-oidc-proxy.example.com"` |  |
@@ -57,6 +61,10 @@ be available before installation of this chart. It's not recommended to be used 
 | gangway.ingress.enabled | bool | `true` |  |
 | gangway.ingress.hosts[0].host | string | `"into.example.com"` |  |
 | gangway.ingress.hosts[0].paths[0] | string | `"/"` |  |
+| gangway.resources.limits.cpu | string | `"50m"` |  |
+| gangway.resources.limits.memory | string | `"64Mi"` |  |
+| gangway.resources.requests.cpu | string | `"50m"` |  |
+| gangway.resources.requests.memory | string | `"64Mi"` |  |
 | gangway.sessionSecurityKey | string | `"betterSecurityKey"` |  |
 | kube-oidc-proxy.cmCertificate | bool | `true` |  |
 | kube-oidc-proxy.enabled | bool | `true` |  |
@@ -65,3 +73,7 @@ be available before installation of this chart. It's not recommended to be used 
 | kube-oidc-proxy.ingress.enabled | bool | `true` |  |
 | kube-oidc-proxy.ingress.hosts[0].host | string | `"kube-oidc-proxy.example.com"` |  |
 | kube-oidc-proxy.ingress.hosts[0].paths[0] | string | `"/"` |  |
+| kube-oidc-proxy.resources.limits.cpu | string | `"50m"` |  |
+| kube-oidc-proxy.resources.limits.memory | string | `"64Mi"` |  |
+| kube-oidc-proxy.resources.requests.cpu | string | `"50m"` |  |
+| kube-oidc-proxy.resources.requests.memory | string | `"64Mi"` |  |
