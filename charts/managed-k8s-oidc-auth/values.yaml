@@ -1,0 +1,93 @@
+# Default values for managed-k8s-oidc-auth.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+RBAC:
+  adminGroups:
+  - org:admin-team
+  developerGroups:
+  - org:developer-team
+
+# Dependencies configuration
+certificate:
+  annotations:
+  issuer: certificate-letsencrypt-staging
+
+# Dependencies configuration
+
+kube-oidc-proxy:
+  enabled: true
+  cmCertificate: true
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    hosts:
+    - host: kube-oidc-proxy.example.com
+      paths: ["/"]
+  resources:
+    limits:
+      cpu: 50m
+      memory: 64Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+gangway:
+  enabled: true
+  config:
+    clusterName: k8s
+    apiServerURL: https://kube-oidc-proxy.example.com
+    authorizeURL: https://dex.example.com
+    audience: ""
+    tokenURL: https://dex.example.com/token
+    scopes:
+      - openid
+      - email
+      - profile
+      - offline_access
+      - groups
+  sessionSecurityKey: betterSecurityKey
+
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+    hosts:
+    - host: into.example.com
+      paths: ["/"]
+  resources:
+    limits:
+      cpu: 50m
+      memory: 64Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+dex:
+  enabled: true
+  connectors:
+  - type: mockCallback
+    id: mock
+    name: Example connector
+  staticClients: []
+  staticPasswords: []
+  prometheusOperator:
+    serviceMonitor:
+      enable: false
+  JSONLogging: true
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+    hosts:
+    - host: dex.example.com
+      paths: ["/"]
+  resources:
+    limits:
+      cpu: 50m
+      memory: 64Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi

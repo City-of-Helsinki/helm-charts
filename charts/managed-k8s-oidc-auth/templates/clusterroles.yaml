@@ -1,0 +1,10 @@
+{{- if .Values.RBAC.developerGroups -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "kube-oidc-proxy.fullname" . }}-oidc-developers
+rules:
+- apiGroups: [""]
+  resources: ["pods", "pods/log", "namespaces"]
+  verbs: ["get", "list"]
+{{- end }}

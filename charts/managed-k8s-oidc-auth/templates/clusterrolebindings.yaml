@@ -1,0 +1,33 @@
+{{- if .Values.RBAC.developerGroups -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "kube-oidc-proxy.fullname" . }}-oidc-developers
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: oidc-developers
+subjects:
+{{- range .Values.RBAC.developerGroups }}
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: {{ . }}
+{{- end }}
+{{- end }}
+---
+{{- if .Values.RBAC.adminGroups -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "kube-oidc-proxy.fullname" . }}-oidc-admins
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+{{- range .Values.RBAC.adminGroups }}
+- apiGroup: rbac.authorization.k8s.io
+  kind: Group
+  name: {{ . }}
+{{- end }}
+{{- end }}
