@@ -14,4 +14,29 @@ entries:
     urls:
     - https://github.com/City-of-Helsinki/managed-k8s-oidc-auth/releases/download/kube-oidc-proxy-0.3.1/kube-oidc-proxy-0.3.1.tgz
     version: 0.3.1
+  managed-k8s-oidc-auth:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-01-04T10:25:28.733426696Z"
+    dependencies:
+    - name: kube-oidc-proxy
+      repository: https://city-of-helsinki.github.io/managed-k8s-oidc-auth/
+      version: 0.3.1
+    - condition: dex.enabled
+      name: dex
+      repository: https://gabibbo97.github.io/charts/
+      version: 4.0.1
+    - name: gangway
+      repository: https://gabibbo97.github.io/charts/
+      version: 1.0.3
+    description: A Helm chart for Kubernetes to deploy services needed for OIDC access to managed clusters (AKS, ESK, GKE)
+    digest: ab297c2caf6226235091f9d1b558c9efd85e13f4f6e893bd0d3d806b900dbbae
+    maintainers:
+    - name: Hi-Fi
+    - name: City-of-Helsinki
+    name: managed-k8s-oidc-auth
+    type: application
+    urls:
+    - https://github.com/City-of-Helsinki/managed-k8s-oidc-auth/releases/download/managed-k8s-oidc-auth-0.1.0/managed-k8s-oidc-auth-0.1.0.tgz
+    version: 0.1.0
 generated: "2020-12-31T11:00:22.885964522Z"
