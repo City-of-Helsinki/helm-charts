@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'charts/**'
 
 jobs:
   release:
@@ -25,6 +23,12 @@ jobs:
         uses: azure/setup-helm@v1
         with:
           version: v3.4.0
+
+      - name: Add dependency chart repos
+        run: |
+          helm repo add gabibbo97 https://gabibbo97.github.io/charts/
+          helm repo add jetstack https://charts.jetstack.io
+          helm repo add city-of-helsinki https://city-of-helsinki.github.io/managed-k8s-oidc-auth/
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.1.0
