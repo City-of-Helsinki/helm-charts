@@ -129,7 +129,8 @@ jobs:
             cert-manager jetstack/cert-manager \
             --namespace cert-manager \
             --version v1.1.0 \
-            --set installCRDs=true
+            --set installCRDs=true \
+            --wait
           cat <<EOF > test-resources.yaml
           apiVersion: cert-manager.io/v1
           kind: ClusterIssuer
