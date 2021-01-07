@@ -1,0 +1,5 @@
+Cronjob {{ include "cronjob.fullname" . }} deployed to {{ .Release.Namespace }}.
+Schedule: {{ .Values.schedule}}.
+
+Once job has executed, you can get logs from it with:
+  kubectl logs --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "cronjob.name" . }},app.kubernetes.io/instance={{ .Release.Name }}"
