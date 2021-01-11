@@ -3,10 +3,9 @@
 # Declare variables to be passed into your templates.
 
 RBAC:
-  adminGroups:
-  - org:admin-team
-  developerGroups:
-  - org:developer-team
+  adminGroups: []
+  developerGroups: []
+  viewerGroups: []
 
 # Dependencies configuration
 certificate:
@@ -28,7 +27,7 @@ kube-oidc-proxy:
       paths: ["/"]
   resources:
     limits:
-      cpu: 50m
+      cpu: 100m
       memory: 64Mi
     requests:
       cpu: 50m
@@ -59,7 +58,7 @@ gangway:
       paths: ["/"]
   resources:
     limits:
-      cpu: 50m
+      cpu: 100m
       memory: 64Mi
     requests:
       cpu: 50m
