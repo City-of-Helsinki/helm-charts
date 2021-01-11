@@ -1,3 +1,11 @@
+RBAC:
+  adminGroups:
+  - dex:adminGroup
+  developerGroups:
+  - dex:developerGroups
+  viewerGroups:
+  - dex:viewerGroups
+
 kube-oidc-proxy:
   oidc:
     clientId: my-client
