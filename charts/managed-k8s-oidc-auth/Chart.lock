@@ -4,9 +4,9 @@ dependencies:
   version: 0.3.1
 - name: dex
   repository: https://gabibbo97.github.io/charts/
-  version: 4.0.1
+  version: 4.0.2
 - name: gangway
   repository: https://gabibbo97.github.io/charts/
   version: 1.0.3
-digest: sha256:cfeb99269cde9eb8904975ef8401541d7d685cb0c5fbfd685ee0ec1e7da94fb4
-generated: "2021-01-04T11:20:11.773736+02:00"
+digest: sha256:d182541cd4c8f0b0f486216635d67817dbff5f62e44e210303859e64292268da
+generated: "2021-01-18T15:43:56.934164+02:00"
