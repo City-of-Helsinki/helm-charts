@@ -1,0 +1,59 @@
+{{- range .Values.serviceMonitors }}
+apiVersion: v1
+kind: Endpoints
+metadata:
+    name: {{ .endpoint_host }}
+    labels:
+        external-endpoint: {{ .endpoint_host }}
+ports:
+    - name: metrics
+      port: {{ .endpoint_port }}
+      protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: {{ .endpoint_host }}
+    labels:
+        external-endpoint: {{ .endpoint_host }}
+spec:
+    type: ExternalName
+    externalName: {{ .endpoint_host }}
+    ports:
+    - name: metrics
+      port: {{ .endpoint_port }}
+      protocol: TCP
+      targetPort: {{ .endpoint_port }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+    name: {{ .endpoint_host }}
+    labels:
+        external-endpoint: {{ .endpoint_host }}
+        prometheus: {{ $.prometheus }}
+spec:
+    selector:
+        matchLabels:
+            external-endpoint: {{ .endpoint_host }}
+        namespaceSelector:
+            matchNames:
+            - {{ $.Release.Namespace }}
+    endpoints:
+    - port: metrics
+      interval: 1m
+      honorLabels: true
+      {{- if .credentials }}
+      basicAuth:
+        username: {{ .credentials.username }}
+        password: {{ .credentials.password }}
+      {{- end}}
+      {{- if .tlsConfig.insecureSkipVerify }}
+      tlsConfig:
+        insecureSkipVerify: {{ .tlsConfig.insecureSkipVerify }}
+      {{- end }}
+      {{- if .endpoint_scheme }}
+      scheme: {{ .endpoint_scheme }}
+      {{- end }}
+---
+{{- end}}

@@ -1,0 +1,6 @@
+Servicemonitor(s) deployed. Please check from prometheus that metrics appear there.
+
+Added servicemonitor towards following addresses:
+{{- range .Values.endpoints }}
+- {{ .endpoint_host}}
+{{- end }}
