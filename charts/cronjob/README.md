@@ -1,6 +1,6 @@
 # cronjob
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 Cronjob creation for scheduling
 
@@ -18,11 +18,11 @@ Cronjob creation for scheduling
 | args[0] | string | `"-c"` |  |
 | args[1] | string | `"date; echo Hello from the Kubernetes cluster"` |  |
 | command[0] | string | `"/bin/sh"` |  |
-| failedJobsHistoryLimit | int | `1` |  |
+| failedJobsHistoryLimit | int | `1` | Number of failed jobs to keep |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.repository | string | `"busybox"` |  |
-| image.tag | string | `"latest"` |  |
+| image.repository | string | `"busybox"` | Image to use to run jobs |
+| image.tag | string | `"latest"` | Tag of image to use to run jobs |
 | imagePullSecrets | list | `[]` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
@@ -35,7 +35,8 @@ Cronjob creation for scheduling
 | serviceAccount.annotations | object | `{}` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `""` |  |
-| successfulJobsHistoryLimit | int | `1` |  |
+| singleRun | bool | `false` | Create job instead of cronjob. Helps testing of deployment and commands. |
+| successfulJobsHistoryLimit | int | `1` | Number of successfull jobs to keep |
 | tolerations | list | `[]` |  |
 
 ----------------------------------------------
