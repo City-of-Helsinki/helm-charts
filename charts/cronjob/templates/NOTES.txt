@@ -1,8 +1,8 @@
 {{- if .Values.singleRun }}
+Job {{ include "cronjob.fullname" . }} deployed to {{ .Release.Namespace }}.
+{{- else }}
 Cronjob {{ include "cronjob.fullname" . }} deployed to {{ .Release.Namespace }}.
 Schedule: {{ .Values.schedule}}.
-{{- else }}
-Job {{ include "cronjob.fullname" . }} deployed to {{ .Release.Namespace }}.
 {{- end }}
 
 Once job has executed, you can get logs from it with:
