@@ -1,6 +1,6 @@
 # cronjob
 
-![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 Cronjob creation for scheduling
 
@@ -19,6 +19,8 @@ Cronjob creation for scheduling
 | args[1] | string | `"date; echo Hello from the Kubernetes cluster"` |  |
 | command[0] | string | `"/bin/sh"` |  |
 | failedJobsHistoryLimit | int | `1` | Number of failed jobs to keep |
+| fileSecret.mountPath | string | `"/tmp/secrets"` |  |
+| fileSecret.name | string | `nil` |  |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"busybox"` | Image to use to run jobs |
