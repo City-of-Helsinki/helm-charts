@@ -136,4 +136,30 @@ entries:
     urls:
     - https://github.com/City-of-Helsinki/managed-k8s-oidc-auth/releases/download/managed-k8s-oidc-auth-0.1.0/managed-k8s-oidc-auth-0.1.0.tgz
     version: 0.1.0
+  oauth2-proxy:
+  - apiVersion: v2
+    appVersion: 7.0.0
+    created: "2021-02-03T15:06:57.123440866Z"
+    description: |
+      A reverse proxy that provides authentication with Google, Github or other providers
+
+      Original chart at https://github.com/helm/charts/tree/master/stable/oauth2-proxy.
+    digest: d2bb28c3f0aa33e0ad1b4e511e55391b89f990c81f57ad272f3dc65e6b6dbe48
+    keywords:
+    - kubernetes
+    - oauth
+    - oauth2
+    - authentication
+    - google
+    - github
+    maintainers:
+    - name: Hi-Fi
+    - name: City-of-Helsinki
+    name: oauth2-proxy
+    sources:
+    - https://github.com/oauth2-proxy/oauth2-proxy
+    type: application
+    urls:
+    - https://github.com/City-of-Helsinki/managed-k8s-oidc-auth/releases/download/oauth2-proxy-4.0.0/oauth2-proxy-4.0.0.tgz
+    version: 4.0.0
 generated: "2020-12-31T11:00:22.885964522Z"
