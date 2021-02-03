@@ -1,0 +1,11 @@
+{{- if not .Values.config.existingConfig }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    {{- include "oauth2-proxy.labels" . | nindent 4 }}
+  name: {{ template "oauth2-proxy.fullname" . }}
+data:
+  oauth2_proxy.cfg: |
+    {{- include "oauth2_proxy.cfg" . | nindent 4 }}
+{{- end }}

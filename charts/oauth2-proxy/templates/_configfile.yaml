@@ -1,0 +1,28 @@
+{{- define "oauth2_proxy.cfg"}}
+http_address = {{ .Values.httpAddress | quote }}
+{{- with .Values.config.google -}}
+{{- if and .adminEmail (or .serviceAccountJson .existingSecret) }}
+google_admin_email = {{ .adminEmail }}
+google_service_account_json = /google/service-account.json
+{{- end -}}
+{{- end -}}
+{{- if .Values.config.oidc }}
+{{- with .Values.config.oidc -}}
+provider = "oidc"
+provider_display_name = {{ .name | default "My OIDC Provider" | quote }}
+pass_access_token = {{.passAccessToken | default true | quote}}
+redirect_url = {{ .redirectURL | quote }}
+oidc_issuer_url = {{ .issuerURL | quote }}
+{{- end }}
+{{- end }}
+{{- if .Values.config.whitelistDomains }}
+whitelist_domains = ["{{ join "\",\"" .Values.config.whitelistDomains}}"]
+cookie_domains = ["{{ join "\",\"" .Values.config.whitelistDomains }}"]
+{{- end }}
+reverse_proxy = {{ .Values.config.reverseProxy | quote}}
+{{- if .Values.config.allowedGroups }}
+allowed_groups = ["{{ join "\",\"" .Values.config.allowedGroups }}"]
+{{- end }}
+## Additional configuration
+{{ .Values.config.configFile }}
+{{- end }}
