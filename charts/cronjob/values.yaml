@@ -60,6 +60,7 @@ affinity: {}
 
 schedule: 0 0 * * *
 restartPolicy: OnFailure
+concurrencyPolicy: Forbid
 command:
 - /bin/sh
 args:
