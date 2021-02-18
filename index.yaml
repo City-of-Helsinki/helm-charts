@@ -3,6 +3,18 @@ entries:
   cronjob:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2021-02-18T14:06:38.09527919Z"
+    description: Cronjob creation for scheduling
+    digest: 93e9ed056a9fb2a68e1a6d55be13a1e7f7606c5aa8dd7a4b82ba5e88741ad445
+    maintainers:
+    - name: City-of-Helsinki
+    name: cronjob
+    type: application
+    urls:
+    - https://github.com/City-of-Helsinki/managed-k8s-oidc-auth/releases/download/cronjob-0.3.0/cronjob-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2021-02-02T10:48:58.862484328Z"
     description: Cronjob creation for scheduling
     digest: b8c2d9172de457d25563cb905cf2247d32a63ed12d0ea9769dfa665716d85794
