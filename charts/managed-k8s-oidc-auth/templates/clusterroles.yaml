@@ -8,8 +8,11 @@ rules:
   resources: ["pods", "pods/log", "namespaces"]
   verbs: ["get", "list"]
 - apiGroups: [""]
-  resources: ["pods", "pods/exec"]
+  resources: ["pods", "pods/exec", "pods/attach"]
   verbs: ["create"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["delete"]
 ---
 {{- end }}
 {{- if .Values.RBAC.viewerGroups -}}
