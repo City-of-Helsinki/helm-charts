@@ -1,6 +1,6 @@
 # managed-k8s-oidc-auth
 
-![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 A Helm chart for Kubernetes to deploy services needed for OIDC access to managed clusters (AKS, ESK, GKE)
 
@@ -32,6 +32,15 @@ be available before installation of this chart. It's not recommended to be used 
 | certificate.annotations | string | `nil` |  |
 | certificate.issuer | string | `"certificate-letsencrypt-staging"` |  |
 | dex.JSONLogging | bool | `true` |  |
+| dex.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.labelSelector.matchLabels."app.kubernetes.io/name" | string | `"dex"` |  |
+| dex.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.topologyKey | string | `"kubernetes.io/hostname"` |  |
+| dex.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].weight | int | `100` |  |
+| dex.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[1].podAffinityTerm.labelSelector.matchLabels."app.kubernetes.io/name" | string | `"dex"` |  |
+| dex.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[1].podAffinityTerm.topologyKey | string | `"topology.kubernetes.io/zone"` |  |
+| dex.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[1].weight | int | `100` |  |
+| dex.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[2].podAffinityTerm.labelSelector.matchLabels."app.kubernetes.io/name" | string | `"dex"` |  |
+| dex.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[2].podAffinityTerm.topologyKey | string | `"failure-domain.beta.kubernetes.io/zone"` |  |
+| dex.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[2].weight | int | `100` |  |
 | dex.connectors[0].id | string | `"mock"` |  |
 | dex.connectors[0].name | string | `"Example connector"` |  |
 | dex.connectors[0].type | string | `"mockCallback"` |  |
@@ -67,6 +76,15 @@ be available before installation of this chart. It's not recommended to be used 
 | gangway.resources.requests.cpu | string | `"50m"` |  |
 | gangway.resources.requests.memory | string | `"64Mi"` |  |
 | gangway.sessionSecurityKey | string | `"betterSecurityKey"` |  |
+| kube-oidc-proxy.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.labelSelector.matchLabels."app.kubernetes.io/name" | string | `"kube-oidc-proxy"` |  |
+| kube-oidc-proxy.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].podAffinityTerm.topologyKey | string | `"kubernetes.io/hostname"` |  |
+| kube-oidc-proxy.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[0].weight | int | `100` |  |
+| kube-oidc-proxy.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[1].podAffinityTerm.labelSelector.matchLabels."app.kubernetes.io/name" | string | `"kube-oidc-proxy"` |  |
+| kube-oidc-proxy.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[1].podAffinityTerm.topologyKey | string | `"topology.kubernetes.io/zone"` |  |
+| kube-oidc-proxy.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[1].weight | int | `100` |  |
+| kube-oidc-proxy.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[2].podAffinityTerm.labelSelector.matchLabels."app.kubernetes.io/name" | string | `"kube-oidc-proxy"` |  |
+| kube-oidc-proxy.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[2].podAffinityTerm.topologyKey | string | `"failure-domain.beta.kubernetes.io/zone"` |  |
+| kube-oidc-proxy.affinity.podAntiAffinity.preferredDuringSchedulingIgnoredDuringExecution[2].weight | int | `100` |  |
 | kube-oidc-proxy.cmCertificate | bool | `true` |  |
 | kube-oidc-proxy.enabled | bool | `true` |  |
 | kube-oidc-proxy.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |

@@ -32,6 +32,27 @@ kube-oidc-proxy:
     requests:
       cpu: 50m
       memory: 64Mi
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - podAffinityTerm:
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: kube-oidc-proxy
+          topologyKey: kubernetes.io/hostname
+        weight: 100
+      - podAffinityTerm:
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: kube-oidc-proxy
+          topologyKey: topology.kubernetes.io/zone
+        weight: 100
+      - podAffinityTerm:
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: kube-oidc-proxy
+          topologyKey: failure-domain.beta.kubernetes.io/zone
+        weight: 100
 
 gangway:
   enabled: true
@@ -90,3 +111,24 @@ dex:
     requests:
       cpu: 50m
       memory: 64Mi
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - podAffinityTerm:
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: dex
+          topologyKey: kubernetes.io/hostname
+        weight: 100
+      - podAffinityTerm:
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: dex
+          topologyKey: topology.kubernetes.io/zone
+        weight: 100
+      - podAffinityTerm:
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: dex
+          topologyKey: failure-domain.beta.kubernetes.io/zone
+        weight: 100
