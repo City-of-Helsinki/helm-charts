@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "weavescope.fullname" . }}-cluster-agent
+  labels:
+    weave-cloud-component: scope
+    weave-scope-component: cluster-agent
+    {{- include "weavescope.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.clusteragent.replicaCount }}
+  selector:
+    matchLabels:
+      weave-cloud-component: scope
+      weave-scope-component: cluster-agent
+      {{- include "weavescope.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.clusteragent.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        weave-cloud-component: scope
+        weave-scope-component: cluster-agent
+        {{- include "weavescope.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.clusteragent.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "weavescope.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.clusteragent.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}-cluster-agent
+          args:
+          - '--mode=probe'
+          - '--probe-only'
+          - '--probe.kubernetes.role=cluster'
+          - '--probe.http.listen=:4041'
+          - '--probe.publish.interval=4500ms'
+          - '--probe.spy.interval=2s'
+          {{-  if not .Values.weavenet }}
+          - --weave=false
+          {{- end }}
+          {{-  if .Values.readonly }}
+          - --probe.no-controls=true
+          {{- end }}
+          - '{{ include "weavescope.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:80'
+          command:
+          - /home/weave/scope
+          securityContext:
+            {{- toYaml .Values.clusteragent.securityContext | nindent 12 }}
+          image: "{{ .Values.clusteragent.image.repository }}:{{ .Values.clusteragent.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.clusteragent.image.pullPolicy }}
+          ports:
+          - containerPort: 4041
+            protocol: TCP
+          resources:
+            {{- toYaml .Values.clusteragent.resources | nindent 12 }}
+      {{- with .Values.clusteragent.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.clusteragent.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.clusteragent.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

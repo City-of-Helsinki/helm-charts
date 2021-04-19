@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ include "weavescope.fullname" . }}-agent
+  labels:
+    weave-cloud-component: scope
+    weave-scope-component: agent
+    {{- include "weavescope.labels" . | nindent 4 }}
+spec:
+  minReadySeconds: 5
+  selector:
+    matchLabels:
+      weave-cloud-component: scope
+      weave-scope-component: agent
+      {{- include "weavescope.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.agent.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        weave-cloud-component: scope
+        weave-scope-component: agent
+        {{- include "weavescope.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.agent.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "weavescope.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.agent.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}-agent
+          args:
+          - '--mode=probe'
+          - '--probe-only'
+          - '--probe.kubernetes.role=host'
+          - '--probe.publish.interval=4500ms'
+          - '--probe.spy.interval=2s'
+          - '--probe.docker.bridge=docker0'
+          - '--probe.docker=true'
+          {{-  if not .Values.weavenet }}
+          - --weave=false
+          {{- end }}
+          {{-  if .Values.readonly }}
+          - --probe.no-controls=true
+          {{- end }}
+          - '{{ include "weavescope.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:80'
+          command:
+          - /home/weave/scope
+          securityContext:
+            {{- toYaml .Values.agent.securityContext | nindent 12 }}
+          image: "{{ .Values.agent.image.repository }}:{{ .Values.agent.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.agent.image.pullPolicy }}
+          resources:
+            {{- toYaml .Values.agent.resources | nindent 12 }}
+          volumeMounts:
+          - name: scope-plugins
+            mountPath: /var/run/scope/plugins
+          - name: sys-kernel-debug
+            mountPath: /sys/kernel/debug
+          - name: docker-socket
+            mountPath: /var/run/docker.sock
+      dnsPolicy: ClusterFirstWithHostNet
+      hostNetwork: true
+      hostPID: true
+      volumes:
+        - name: scope-plugins
+          hostPath:
+            path: /var/run/scope/plugins
+        - name: sys-kernel-debug
+          hostPath:
+            path: /sys/kernel/debug
+        - name: docker-socket
+          hostPath:
+            path: /var/run/docker.sock
+      {{- with .Values.agent.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.agent.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.agent.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
