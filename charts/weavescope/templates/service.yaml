@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "weavescope.fullname" . }}
+  labels:
+    weave-cloud-component: scope
+    weave-scope-component: app
+    {{- include "weavescope.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 4040
+      protocol: TCP
+      name: app
+  selector:
+    weave-cloud-component: scope
+    weave-scope-component: app
+    {{- include "weavescope.selectorLabels" . | nindent 4 }}

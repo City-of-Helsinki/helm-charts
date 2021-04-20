@@ -1,6 +1,6 @@
 # oauth2-proxy
 
-![Version: 4.0.0](https://img.shields.io/badge/Version-4.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 7.0.0](https://img.shields.io/badge/AppVersion-7.0.0-informational?style=flat-square)
+![Version: 7.1.2](https://img.shields.io/badge/Version-7.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v7.1.2](https://img.shields.io/badge/AppVersion-v7.1.2-informational?style=flat-square)
 
 A reverse proxy that provides authentication with Google, Github or other providers
 
@@ -45,7 +45,7 @@ Original chart at https://github.com/helm/charts/tree/master/stable/oauth2-proxy
 | httpScheme | string | `"http"` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"quay.io/oauth2-proxy/oauth2-proxy"` |  |
-| image.tag | string | `"v7.0.0"` |  |
+| image.tag | string | `""` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.path | string | `"/"` |  |
 | livenessProbe.enabled | bool | `true` |  |

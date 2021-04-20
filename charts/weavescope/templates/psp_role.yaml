@@ -1,0 +1,16 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "weavescope.serviceAccountName" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: weave-scope
+rules:
+- apiGroups:
+  - extensions
+  resources:
+  - podsecuritypolicies
+  resourceNames:
+  - {{ include "weavescope.serviceAccountName" . }}
+  verbs:
+  - use
