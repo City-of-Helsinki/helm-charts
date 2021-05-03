@@ -64,6 +64,19 @@ entries:
   kube-oidc-proxy:
   - apiVersion: v1
     appVersion: v0.3.0
+    created: "2021-05-03T10:04:16.59050252Z"
+    description: A Helm chart for kube-oidc-proxy
+    digest: 833c5d5f10174ae65083053d73beffd723bf9225684029e8d678e90ef8251b2c
+    home: https://github.com/jetstack/kube-oidc-proxy
+    maintainers:
+    - name: mhrabovcin
+    - name: joshvanl
+    name: kube-oidc-proxy
+    urls:
+    - https://github.com/City-of-Helsinki/helm-charts/releases/download/kube-oidc-proxy-0.3.4/kube-oidc-proxy-0.3.4.tgz
+    version: 0.3.4
+  - apiVersion: v1
+    appVersion: v0.3.0
     created: "2021-05-03T07:55:58.669168383Z"
     description: A Helm chart for kube-oidc-proxy
     digest: 0b77431fefa17fb8d37665318d68652d379373c8daa7d411de01f709794951dd
@@ -249,6 +262,31 @@ entries:
   oauth2-proxy:
   - apiVersion: v2
     appVersion: v7.1.3
+    created: "2021-05-03T10:04:16.702004087Z"
+    description: |
+      A reverse proxy that provides authentication with Google, Github or other providers
+
+      Original chart at https://github.com/helm/charts/tree/master/stable/oauth2-proxy.
+    digest: 5d6f1190be6ad1c74ec88ee176cd3855111a1e42623fcac8b7feb4e45fd43979
+    keywords:
+    - kubernetes
+    - oauth
+    - oauth2
+    - authentication
+    - google
+    - github
+    maintainers:
+    - name: Hi-Fi
+    - name: City-of-Helsinki
+    name: oauth2-proxy
+    sources:
+    - https://github.com/oauth2-proxy/oauth2-proxy
+    type: application
+    urls:
+    - https://github.com/City-of-Helsinki/helm-charts/releases/download/oauth2-proxy-7.1.4/oauth2-proxy-7.1.4.tgz
+    version: 7.1.4
+  - apiVersion: v2
+    appVersion: v7.1.3
     created: "2021-05-03T07:55:58.88375498Z"
     description: |
       A reverse proxy that provides authentication with Google, Github or other providers
@@ -323,6 +361,28 @@ entries:
     - https://github.com/City-of-Helsinki/managed-k8s-oidc-auth/releases/download/oauth2-proxy-4.0.0/oauth2-proxy-4.0.0.tgz
     version: 4.0.0
   weavescope:
+  - apiVersion: v2
+    appVersion: 1.13.2
+    created: "2021-05-03T10:04:16.800223999Z"
+    description: |
+      A Helm chart for Kubernetes to deploy Weave scope.
+
+      Based on manifests from https://github.com/alexdmoss/weave-scope.
+    digest: 19db23391644c3ff8cd2142b89f2cb5de1d7d2149f4ab63839d142296cb319cc
+    keywords:
+    - weavescope
+    - monitoring
+    - maintenance
+    maintainers:
+    - name: Hi-Fi
+    - name: City-of-Helsinki
+    name: weavescope
+    sources:
+    - https://github.com/weaveworks/scope
+    type: application
+    urls:
+    - https://github.com/City-of-Helsinki/helm-charts/releases/download/weavescope-0.1.2/weavescope-0.1.2.tgz
+    version: 0.1.2
   - apiVersion: v2
     appVersion: 1.13.2
     created: "2021-05-03T07:55:58.988971509Z"
