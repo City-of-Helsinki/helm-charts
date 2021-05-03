@@ -1,6 +1,13 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "kube-oidc-proxy.fullname" . -}}
+{{- $networkingApi := or (.Capabilities.APIVersions.Has "networking.k8s.io/v1") (.Capabilities.APIVersions.Has "networking.k8s.io/v1beta1")}}
+{{- if .Capabilities.APIVersions.Has "networking.k8s.io/v1" -}}
+apiVersion: networking.k8s.io/v1
+{{- else if .Capabilities.APIVersions.Has "networking.k8s.io/v1beta1" -}}
 apiVersion: networking.k8s.io/v1beta1
+{{- else -}}
+apiVersion: extensions/v1beta1
+{{- end }}
 kind: Ingress
 metadata:
   name: {{ $fullName }}
@@ -28,9 +35,19 @@ spec:
         paths:
         {{- range .paths }}
           - path: {{ . }}
+            {{- if $networkingApi }}
+            pathType: Prefix
+            {{- end }}
             backend:
+              {{- if $networkingApi -}}
+              service:
+                name: {{ $fullName }}
+                port:
+                  name: https
+              {{- else -}}
               serviceName: {{ $fullName }}
               servicePort: https
+              {{- end }}
         {{- end }}
   {{- end }}
 {{- end }}

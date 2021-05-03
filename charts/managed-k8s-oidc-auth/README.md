@@ -15,9 +15,9 @@ A Helm chart for Kubernetes to deploy services needed for OIDC access to managed
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://city-of-helsinki.github.io/managed-k8s-oidc-auth/ | kube-oidc-proxy | 0.3.1 |
+| https://city-of-helsinki.github.io/helm-charts/ | kube-oidc-proxy | 0.3.1 |
 | https://gabibbo97.github.io/charts/ | dex | 4.0.3 |
-| https://gabibbo97.github.io/charts/ | gangway | 1.0.3 |
+| https://gabibbo97.github.io/charts/ | gangway | 1.1.0 |
 
 Note that also [cert-manager](https://cert-manager.io/docs/installation/kubernetes/#installing-with-helm) should
 be available before installation of this chart. It's not recommended to be used as sub-chart.
