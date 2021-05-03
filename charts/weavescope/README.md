@@ -1,6 +1,6 @@
 # weavescope
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.13.2](https://img.shields.io/badge/AppVersion-1.13.2-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.13.2](https://img.shields.io/badge/AppVersion-1.13.2-informational?style=flat-square)
 
 A Helm chart for Kubernetes to deploy Weave scope.
 
@@ -71,7 +71,7 @@ Based on manifests from https://github.com/alexdmoss/weave-scope.
 | ingress.annotations | object | `{}` |  |
 | ingress.enabled | bool | `false` | Enables ingress to Weave Scope. Note that free version doesn't have ANY authentication. Access should be limited with e.g. oauth2-proxy or whitelisting. |
 | ingress.hosts[0].host | string | `"chart-example.local"` |  |
-| ingress.hosts[0].paths | list | `[]` |  |
+| ingress.hosts[0].paths[0] | string | `"/"` |  |
 | ingress.tls | list | `[]` |  |
 | nameOverride | string | `""` |  |
 | readonly | bool | `false` | Run Weave Scope in read only mode (not possible to modify deployment/pods) |
