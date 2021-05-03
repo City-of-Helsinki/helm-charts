@@ -1,12 +1,12 @@
 dependencies:
 - name: kube-oidc-proxy
-  repository: https://city-of-helsinki.github.io/managed-k8s-oidc-auth/
+  repository: https://city-of-helsinki.github.io/helm-charts/
   version: 0.3.1
 - name: dex
   repository: https://gabibbo97.github.io/charts/
   version: 4.0.3
 - name: gangway
   repository: https://gabibbo97.github.io/charts/
-  version: 1.0.3
-digest: sha256:4be30221d6fff750e20ea4c2f97f2fcae20397657d2be4fa00b33f38b03bd9e2
-generated: "2021-04-20T09:23:57.927103+03:00"
+  version: 1.1.0
+digest: sha256:f25dc8602dc3bdaa8111cb2a951470129f3814144aaa3215bb10b33ff042b45a
+generated: "2021-05-03T08:40:41.465183+03:00"

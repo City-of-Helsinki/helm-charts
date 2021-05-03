@@ -3,7 +3,10 @@
 {{- $servicePort := .Values.service.port -}}
 {{- $ingressPath := .Values.ingress.path -}}
 {{- $extraPaths := .Values.ingress.extraPaths -}}
-{{- if .Capabilities.APIVersions.Has "networking.k8s.io/v1beta1" -}}
+{{- $networkingApi := or (.Capabilities.APIVersions.Has "networking.k8s.io/v1") (.Capabilities.APIVersions.Has "networking.k8s.io/v1beta1")}}
+{{- if .Capabilities.APIVersions.Has "networking.k8s.io/v1" -}}
+apiVersion: networking.k8s.io/v1
+{{- else if .Capabilities.APIVersions.Has "networking.k8s.io/v1beta1" -}}
 apiVersion: networking.k8s.io/v1beta1
 {{- else -}}
 apiVersion: extensions/v1beta1
@@ -27,9 +30,19 @@ spec:
 {{ toYaml $extraPaths | indent 10 }}
 {{- end }}
           - path: {{ $ingressPath }}
+            {{- if $networkingApi }}
+            pathType: Prefix
+            {{- end }}
             backend:
+              {{- if $networkingApi }}
+              service:
+                name: {{ $serviceName }}
+                port:
+                  number: {{ $servicePort }}
+              {{- else }}
               serviceName: {{ $serviceName }}
               servicePort: {{ $servicePort }}
+              {{- end }}
     {{- end -}}
   {{- if .Values.ingress.tls }}
   tls:

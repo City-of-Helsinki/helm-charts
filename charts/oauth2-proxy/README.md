@@ -1,6 +1,6 @@
 # oauth2-proxy
 
-![Version: 7.1.2](https://img.shields.io/badge/Version-7.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v7.1.2](https://img.shields.io/badge/AppVersion-v7.1.2-informational?style=flat-square)
+![Version: 7.1.3](https://img.shields.io/badge/Version-7.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v7.1.3](https://img.shields.io/badge/AppVersion-v7.1.3-informational?style=flat-square)
 
 A reverse proxy that provides authentication with Google, Github or other providers
 

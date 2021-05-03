@@ -15,11 +15,11 @@ maintainers:
 dependencies:
 - name: kube-oidc-proxy
   version: 0.3.1
-  repository: "https://city-of-helsinki.github.io/managed-k8s-oidc-auth/"
+  repository: "https://city-of-helsinki.github.io/helm-charts/"
 - name: dex
   version: 4.0.3
   repository: https://gabibbo97.github.io/charts/
   condition: dex.enabled
 - name: gangway
-  version: 1.0.3
+  version: 1.1.0
   repository: https://gabibbo97.github.io/charts/
