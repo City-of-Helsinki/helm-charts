@@ -1,2 +1,8 @@
 config:
   cookieSecret: YlJnRVN5dERUN1dLQWVyT2pxaDJOTGRSSWNtYUlBb28=
+
+ingress:
+  enabled: true
+  path: /
+  hosts:
+    - oauth2-proxy-test.cluster.local

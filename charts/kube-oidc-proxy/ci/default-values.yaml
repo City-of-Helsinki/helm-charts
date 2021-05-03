@@ -2,3 +2,10 @@ oidc:
   clientId: my-client
   issuerUrl: https://accounts.google.com
   usernameClaim: email
+
+ingress:
+  enabled: true
+  hosts:
+    - host: kube-oidc-proxy-test.cluster.local
+      paths:
+      - /
