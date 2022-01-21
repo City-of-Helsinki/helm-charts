@@ -2,7 +2,7 @@
 {{- $fullName := include "gangway.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
 {{- $stableApi := .Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress"}}
-{{- if .Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" -}}
+{{- if $stableApi -}}
 apiVersion: networking.k8s.io/v1
 {{- else if .Capabilities.APIVersions.Has "networking.k8s.io/v1beta1/Ingress" -}}
 apiVersion: networking.k8s.io/v1beta1
@@ -34,6 +34,7 @@ spec:
     - host: {{ .host | quote }}
       http:
         paths:
+        {{- range .paths }}
           - path: {{ . }}
             {{- if $stableApi }}
             pathType: Prefix
@@ -43,21 +44,11 @@ spec:
               service:
                 name: {{ $fullName }}
                 port:
-                  number: {{ $svcPort }}
+                  name: https
               {{- else }}
               serviceName: {{ $fullName }}
-              servicePort: {{ $svcPort }}
+              servicePort: https
               {{- end }}
-    {{- end -}}
-    {{- range .Values.ingress.hosts }}
-    - host: {{ .host | quote }}
-      http:
-        paths:
-        {{- range .paths }}
-          - path: {{ . }}
-            backend:
-              serviceName: {{ $fullName }}
-              servicePort: {{ $svcPort }}
         {{- end }}
-    {{- end }}
+    {{- end -}}
   {{- end }}
