@@ -182,6 +182,30 @@ entries:
   managed-k8s-oidc-auth:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-01-21T17:47:22.420267239Z"
+    dependencies:
+    - name: kube-oidc-proxy
+      repository: https://city-of-helsinki.github.io/helm-charts/
+      version: 0.3.4
+    - condition: dex.enabled
+      name: dex
+      repository: https://city-of-helsinki.github.io/helm-charts/
+      version: 0.0.1
+    - name: gangway
+      repository: https://city-of-helsinki.github.io/helm-charts/
+      version: 0.0.2
+    description: A Helm chart for Kubernetes to deploy services needed for OIDC access to managed clusters (AKS, ESK, GKE)
+    digest: 573a85c551a2bc50c3dd55098f470d438e109e66e90220de4a8f2ec4b98cabf8
+    maintainers:
+    - name: Hi-Fi
+    - name: City-of-Helsinki
+    name: managed-k8s-oidc-auth
+    type: application
+    urls:
+    - https://github.com/City-of-Helsinki/helm-charts/releases/download/managed-k8s-oidc-auth-0.1.7/managed-k8s-oidc-auth-0.1.7.tgz
+    version: 0.1.7
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2021-05-03T10:15:53.435507493Z"
     dependencies:
     - name: kube-oidc-proxy
