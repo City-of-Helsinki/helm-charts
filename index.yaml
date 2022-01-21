@@ -94,6 +94,23 @@ entries:
   gangway:
   - apiVersion: v2
     appVersion: v3.2.0
+    created: "2022-01-21T17:36:52.755792244Z"
+    description: An application that can be used to easily enable authentication flows via OIDC for a kubernetes cluster.
+    digest: fb82f0a3ad8fb6f498e8e7ba5404d1147ab61561cd927cd9ae2e3a55a274e3b5
+    home: https://github.com/heptiolabs/gangway
+    keywords:
+    - authentication
+    - k8s
+    - oidc
+    maintainers:
+    - name: City-of-Helsinki
+    name: gangway
+    type: application
+    urls:
+    - https://github.com/City-of-Helsinki/helm-charts/releases/download/gangway-0.0.2/gangway-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
+    appVersion: v3.2.0
     created: "2022-01-21T16:11:00.099660118Z"
     description: An application that can be used to easily enable authentication flows via OIDC for a kubernetes cluster.
     digest: d4d249c6a099ee99e3c622f1ecf7e26201e594dd830eb87b27be406981765eec
