@@ -1,6 +1,6 @@
 # managed-k8s-oidc-auth
 
-![Version: 0.1.6](https://img.shields.io/badge/Version-0.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.1.7](https://img.shields.io/badge/Version-0.1.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 A Helm chart for Kubernetes to deploy services needed for OIDC access to managed clusters (AKS, ESK, GKE)
 
@@ -15,9 +15,9 @@ A Helm chart for Kubernetes to deploy services needed for OIDC access to managed
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://city-of-helsinki.github.io/helm-charts/ | dex | 0.0.1 |
+| https://city-of-helsinki.github.io/helm-charts/ | gangway | 0.0.2 |
 | https://city-of-helsinki.github.io/helm-charts/ | kube-oidc-proxy | 0.3.4 |
-| https://gabibbo97.github.io/charts/ | dex | 4.0.3 |
-| https://gabibbo97.github.io/charts/ | gangway | 1.1.0 |
 
 Note that also [cert-manager](https://cert-manager.io/docs/installation/kubernetes/#installing-with-helm) should
 be available before installation of this chart. It's not recommended to be used as sub-chart.

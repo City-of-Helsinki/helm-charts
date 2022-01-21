@@ -4,7 +4,7 @@ description: A Helm chart for Kubernetes to deploy services needed for OIDC acce
 
 type: application
 
-version: 0.1.6
+version: 0.1.7
 
 appVersion: 1.0.0
 
@@ -17,9 +17,9 @@ dependencies:
   version: 0.3.4
   repository: "https://city-of-helsinki.github.io/helm-charts/"
 - name: dex
-  version: 4.0.3
-  repository: https://gabibbo97.github.io/charts/
+  version: 0.0.1
+  repository: "https://city-of-helsinki.github.io/helm-charts/"
   condition: dex.enabled
 - name: gangway
-  version: 1.1.0
-  repository: https://gabibbo97.github.io/charts/
+  version: 0.0.2
+  repository: "https://city-of-helsinki.github.io/helm-charts/"
