@@ -7,6 +7,6 @@ dependencies:
   version: 0.0.1
 - name: gangway
   repository: https://city-of-helsinki.github.io/helm-charts/
-  version: 0.0.2
-digest: sha256:3fe1ec6ddc56eb032ea7caa92acde5688df05faefd7d98d8ef7d6810f4cced46
-generated: "2022-01-21T19:37:54.743189+02:00"
+  version: 0.0.3
+digest: sha256:1ce51d8586bc94fe7369b7e18d4f5b02a8b7ac981cdb13b43af0e4d3dde96bc7
+generated: "2022-01-21T20:50:21.766157+02:00"
