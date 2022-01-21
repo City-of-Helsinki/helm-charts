@@ -3,10 +3,10 @@ dependencies:
   repository: https://city-of-helsinki.github.io/helm-charts/
   version: 0.3.4
 - name: dex
-  repository: https://gabibbo97.github.io/charts/
-  version: 4.0.3
+  repository: https://city-of-helsinki.github.io/helm-charts/
+  version: 0.0.1
 - name: gangway
-  repository: https://gabibbo97.github.io/charts/
-  version: 1.1.0
-digest: sha256:dbae2e273c5fa9345840030e45aa9fa1f932de9b7e24bafc541a513007610e55
-generated: "2021-05-03T13:06:51.387033+03:00"
+  repository: https://city-of-helsinki.github.io/helm-charts/
+  version: 0.0.2
+digest: sha256:3fe1ec6ddc56eb032ea7caa92acde5688df05faefd7d98d8ef7d6810f4cced46
+generated: "2022-01-21T19:37:54.743189+02:00"
