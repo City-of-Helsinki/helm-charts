@@ -1,0 +1,106 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "dex.fullname" . }}
+  labels:
+    {{- include "dex.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "dex.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        app.kubernetes.io/configuration-checksum: {{ include "dex.config" . | sha256sum | trunc 32 }}
+        {{- if .Values.staticClients }}
+        app.kubernetes.io/secrets-checksum: {{ .Values.staticClients | toJson | sha256sum | trunc 32  }}
+        {{- end }}
+      labels:
+        {{- include "dex.selectorLabels" . | nindent 8 }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "dex.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "dex.fullname" . }}
+        {{- if .Values.dexAPI.enabled }}
+        - name: grpc-ca-tls
+          secret:
+            secretName: {{ .Values.dexAPI.clientCASecret }}
+            items:
+              - key: tls.crt
+                path: tls.crt
+        - name: grpc-server-tls
+          secret:
+            secretName: {{ .Values.dexAPI.serverCertificateSecret }}
+        {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - /usr/local/bin/dex
+          args:
+            - serve
+            - /etc/dex/cfg/config.yaml
+          env:
+            - name: KUBERNETES_POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          {{- if .Values.staticClients }}
+          envFrom:
+            - secretRef:
+                name: {{ include "dex.fullname" . }}
+          {{- end }}
+          ports:
+            - name: http
+              containerPort: 8080
+            - name: telemetry
+              containerPort: 8888
+            {{- if .Values.staticClients }}
+            - name: grpc
+              containerPort: 8080
+            {{- end }}
+          volumeMounts:
+            - name: config
+              mountPath: /etc/dex/cfg
+            {{- if .Values.dexAPI.enabled }}
+            - name: grpc-ca-tls
+              mountPath: /etc/dex-client-ca/tls.crt
+            - name: grpc-server-tls
+              mountPath: /etc/dex-server-tls/tls.crt
+            {{- end }}
+          {{- range $i, $probeType := list "liveness" "readiness" }}
+          {{ $probeType }}Probe:
+            initialDelaySeconds: 30
+            httpGet:
+              path: /healthz
+              port: http
+              httpHeaders:
+                - name: Host
+                  value: {{ if $.Values.dexExternalURL }}{{ trimPrefix "http" $.Values.dexExternalURL | trimPrefix "https" | trimPrefix "://" }}{{ else }}{{ (first $.Values.ingress.hosts).host }}{{ end }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

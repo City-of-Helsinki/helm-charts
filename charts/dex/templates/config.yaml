@@ -1,0 +1,85 @@
+{{- define "dex.config" }}
+issuer: {{ if .Values.dexExternalURL }}{{ .Values.dexExternalURL }}{{ else }}https://{{ (first .Values.ingress.hosts).host }}{{ end }}
+storage:
+  type: kubernetes
+  config:
+    inCluster: true
+
+web:
+  http: 0.0.0.0:8080
+telemetry:
+  http: 0.0.0.0:8888
+
+{{- if .Values.dexAPI.enabled }}
+grpc:
+  addr: 0.0.0.0:8080
+  tlsCert: /etc/dex-server-tls/tls.crt
+  tlsKey: /etc/dex-server-tls/tls.key
+  tlsClientCA: /etc/dex-client-ca/tls.crt
+{{- end }}
+
+{{- if .Values.JSONLogging }}
+logger:
+  format: "json"
+{{- end }}
+
+oauth2: {{ .Values.OAuth2 | toYaml | nindent 2 }}
+
+connectors: {{ .Values.connectors | toYaml | nindent 2 }}
+
+{{/* Static clients */}}
+{{- if .Values.staticClients }}
+staticClients:
+  {{- range $i, $clientData := .Values.staticClients }}
+  {{- $client := deepCopy $clientData }}
+  {{- $_ := unset $client "id" }}
+  {{- $_ := set $client "idEnv"     (printf "DEX_CLIENT_%d_CLIENT_ID" $i) }}
+  {{- $_ := unset $client "secret" }}
+  {{- $_  = set $client "secretEnv" (printf "DEX_CLIENT_%d_CLIENT_SECRET" $i) }}
+  - {{ $client | toYaml | nindent 4 }}
+  {{- end }}
+{{- end }}
+
+{{/* Static passwords */}}
+enablePasswordDB: {{ ne 0 (len .Values.staticPasswords) | toYaml }}
+{{- if .Values.staticPasswords }}
+staticPasswords:
+  {{- range $i, $userData := .Values.staticPasswords }}
+  - {{ $userData | toYaml | nindent 4 }}
+  {{- end }}
+{{- end }}
+{{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "dex.fullname" . }}
+  labels:
+    {{- include "dex.labels" . | nindent 4 }}
+data:
+  {{- if .Values.dexConfig }}
+  config.yaml: |-
+    {{- .Values.dexConfig | toYaml | nindent 4 }}
+  {{- else }}
+  config.yaml: |- {{- include "dex.config" . | fromYaml | toYaml | nindent 4 }}
+  {{- end }}
+{{- if .Values.staticClients }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "dex.fullname" . }}
+  labels:
+    {{- include "dex.labels" . | nindent 4 }}
+data:
+  {{- if .Values.dexEnvironment }}
+  {{- range $k, $v := .Values.dexEnvironment }}
+  {{ $k }}: {{ $v | b64enc | quote }}
+  {{- end }}
+  {{- else }}
+  {{- range $i, $connector := .Values.staticClients }}
+  DEX_CLIENT_{{ $i }}_CLIENT_ID: {{ $connector.id | b64enc | quote }}
+  DEX_CLIENT_{{ $i }}_CLIENT_SECRET: {{ $connector.secret | b64enc | quote }}
+  {{- end }}
+  {{- end }}
+{{- end }}
