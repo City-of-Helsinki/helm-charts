@@ -3,7 +3,7 @@ name: cronjob
 description: Cronjob creation for scheduling
 
 type: application
-version: 0.3.0
+version: 0.3.1
 appVersion: 1.0.0
 maintainers:
 - name: City-of-Helsinki
