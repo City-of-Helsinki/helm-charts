@@ -1,0 +1,11 @@
+prometheus: kube-prometheus
+serviceMonitors: []
+  # Endpoint configuration. Credentials are used only if provided
+  # - endpoint_host:
+  #   endpoint_port:
+  #   credentials:
+  #     username:
+  #     password:
+  #   endpoint_scheme: HTTP
+  #   tlsConfig:
+  #     insecureSkipVerify: true # No check of certificate if using self signed one
